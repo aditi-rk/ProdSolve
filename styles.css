@@ -1,0 +1,185 @@
+/* Modern CSS Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Variables for easy customization */
+:root {
+    --primary-color: #6c5ce7;
+    --secondary-color: #a29bfe;
+    --background-color: #fee2e2;
+    --card-background: #ffffff;
+    --text-color: #d8bebe;
+    --accent-color: #f77da7;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.08);
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+/* Modern typography and base styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    border-radius: var(--border-radius);
+    background: var(--card-background);
+    box-shadow: var(--shadow-sm);
+}
+
+h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.link-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+/* Link card styling */
+.link-item {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform var(--transition-speed) ease, 
+                box-shadow var(--transition-speed) ease;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    opacity: 0;
+}
+
+.link-item::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform var(--transition-speed) ease-out;
+    border-radius: var(--border-radius);
+}
+
+.link-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+
+.link-item:hover::before {
+    transform: scaleX(1);
+}
+
+.link-item a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    transition: color var(--transition-speed) ease;
+}
+
+.link-item:hover a {
+    color: white;
+}
+
+/* Icon for each link */
+.link-icon {
+    margin-right: 12px;
+    font-size: 1.5rem;
+    transition: transform var(--transition-speed) ease;
+}
+
+.link-item:hover .link-icon {
+    transform: rotate(360deg);
+}
+
+/* Animation for page load */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 15px;
+    }
+    
+    .link-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .link-item a {
+        padding: 16px;
+        font-size: 1rem;
+    }
+}
+
+/* Support for dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #1a1a2e;
+        --card-background: #16213e;
+        --text-color: #e6e6e6;
+    }
+}
